@@ -72,7 +72,7 @@ resource "azurerm_public_ip" "firewall" {
 }
 
 module "diagnostic_setting_firewall_pip" {
-  source = "git::https://github.com/Noya50/hafifot-diagnosticSetting.git"
+  source = "git::https://github.com/Noya50/hafifot-diagnosticSetting.git?ref=main"
 
   name                       = "${azurerm_public_ip.firewall.name}-diagnostic-setting"
   target_resource_id         = azurerm_public_ip.firewall.id
@@ -146,7 +146,7 @@ resource "azurerm_firewall" "this" {
 }
 
 module "diagnostic_setting" {
-  source = "git::https://github.com/Noya50/hafifot-diagnosticSetting.git"
+  source = "git::https://github.com/Noya50/hafifot-diagnosticSetting.git?ref=main"
 
   name                       = "${azurerm_firewall.this.name}-diagnostic-setting"
   target_resource_id         = azurerm_firewall.this.id
