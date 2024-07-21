@@ -72,7 +72,7 @@ resource "azurerm_public_ip" "firewall" {
 }
 
 module "diagnostic_setting_firewall_pip" {
-  source = "../diagnosticSetting"
+  source = "git::https://github.com/Noya50/hafifot-diagnosticSetting.git"
 
   name                       = "${azurerm_public_ip.firewall.name}-diagnostic-setting"
   target_resource_id         = azurerm_public_ip.firewall.id
@@ -96,7 +96,7 @@ resource "azurerm_public_ip" "management" {
 
 module "diagnostic_setting_management_pip" {
   for_each = var.is_force_tunneling_enabled == true ? tomap({0 = true}) :  tomap({})
-  source = "../diagnosticSetting"
+  source = "git::https://github.com/Noya50/hafifot-diagnosticSetting.git"
 
   name                       = "${azurerm_public_ip.management[0].name}-diagnostic-setting"
   target_resource_id         = azurerm_public_ip.management[0].id
@@ -146,7 +146,7 @@ resource "azurerm_firewall" "this" {
 }
 
 module "diagnostic_setting" {
-  source = "../diagnosticSetting"
+  source = "git::https://github.com/Noya50/hafifot-diagnosticSetting.git"
 
   name                       = "${azurerm_firewall.this.name}-diagnostic-setting"
   target_resource_id         = azurerm_firewall.this.id
