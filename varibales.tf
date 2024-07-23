@@ -25,19 +25,19 @@ variable "firewall_subnet_id" {
 
 variable "firewall_pip_log_analytics_workspace_id" {
   description = "(Required) Log analytics workspace for the diagnostic setting of the firewall pip."
-  type = string
+  type        = string
 }
 
 variable "management_pip_log_analytics_workspace_id" {
   description = "(Optional) Log analytics workspace for the diagnostic setting of the management pip. If a management ip is created but this value is not specified, the log_analytics_workspace_id of the firewall pip will be used."
-  type = string
-  default = null
+  type        = string
+  default     = null
 }
 
 variable "pips_diagnostic_setting_categories" {
   description = "(Optional) Categories for the diagnostic setting of the pips."
-  type = list(string)
-  default = [ "DDoSProtectionNotifications", "DDoSMitigationFlowLogs", "DDoSMitigationReports" ]
+  type        = list(string)
+  default     = ["DDoSProtectionNotifications", "DDoSMitigationFlowLogs", "DDoSMitigationReports"]
 }
 
 variable "policy_name" {
@@ -199,32 +199,31 @@ variable "rule_collection_group_priority" {
 variable "network_rule_collections" {
   description = "(Optional) A list of objects each describing one network rule collection"
   type = list(object({
-    name      = string
-    priority  = number
-    action    = string
+    name     = string
+    priority = number
+    action   = string
     rule = map(object({
-        protocols = list(string)
-        source_addresses = list(string)
-        destination_addresses = list(string)
-        destination_ports = list(string)
+      protocols             = list(string)
+      source_addresses      = list(string)
+      destination_addresses = list(string)
+      destination_ports     = list(string)
     }))
   }))
-  default = null
 }
 
 variable "application_rule_collections" {
   description = "(Optional) A list of objects each describing one application rule collection"
   type = list(object({
-    name      = string
-    priority  = number
-    action    = string
+    name     = string
+    priority = number
+    action   = string
     rule = map(object({
-        protocols = list(object({
-          type = string
-          port = number
-        }))
-        source_addresses = list(string)
-        destination_fqdns = list(string)
+      protocols = list(object({
+        type = string
+        port = number
+      }))
+      source_addresses  = list(string)
+      destination_fqdns = list(string)
     }))
   }))
   default = null
@@ -232,6 +231,6 @@ variable "application_rule_collections" {
 
 variable "diagnostic_setting_categories" {
   description = "value"
-  type = list(string)
-  default = [ "AzureFirewallApplicationRule", "AzureFirewallNetworkRule", "AzureFirewallDnsProxy", "AZFWApplicationRule", "AZFWApplicationRuleAggregation", "AZFWDnsQuery", "AZFWFatFlow", "AZFWFlowTrace", "AZFWFqdnResolveFailure", "AZFWIdpsSignature", "AZFWNatRule", "AZFWNatRuleAggregation", "AZFWNetworkRule", "AZFWNetworkRuleAggregation", "AZFWThreatIntel", "AzureFirewallApplicationRule", "AzureFirewallDnsProxy", "AzureFirewallNetworkRule" ]
+  type        = list(string)
+  default     = ["AzureFirewallApplicationRule", "AzureFirewallNetworkRule", "AzureFirewallDnsProxy", "AZFWApplicationRule", "AZFWApplicationRuleAggregation", "AZFWDnsQuery", "AZFWFatFlow", "AZFWFlowTrace", "AZFWFqdnResolveFailure", "AZFWIdpsSignature", "AZFWNatRule", "AZFWNatRuleAggregation", "AZFWNetworkRule", "AZFWNetworkRuleAggregation", "AZFWThreatIntel", "AzureFirewallApplicationRule", "AzureFirewallDnsProxy", "AzureFirewallNetworkRule"]
 }

@@ -19,7 +19,7 @@ resource "azurerm_firewall_policy_rule_collection_group" "example" {
       name     = network_rule_collection.value.name
       priority = network_rule_collection.value.priority
       action   = network_rule_collection.value.action
-      rule {
+      dynamic "rule" {
         for_each = network_rule_collection.value.rule != null ? network_rule_collection.value.rule : tomap([{}])
         content {
           name                  = rule.key
@@ -74,14 +74,14 @@ resource "azurerm_public_ip" "firewall" {
 module "diagnostic_setting_firewall_pip" {
   source = "git::https://github.com/Noya50/hafifot-diagnosticSetting.git?ref=main"
 
-  name                       = "${azurerm_public_ip.firewall.name}-diagnostic-setting"
-  target_resource_id         = azurerm_public_ip.firewall.id
-  log_analytics_workspace_id = var.firewall_pip_log_analytics_workspace_id
+  name                          = "${azurerm_public_ip.firewall.name}-diagnostic-setting"
+  target_resource_id            = azurerm_public_ip.firewall.id
+  log_analytics_workspace_id    = var.firewall_pip_log_analytics_workspace_id
   diagnostic_setting_categories = var.pips_diagnostic_setting_categories
 }
 
 resource "azurerm_public_ip" "management" {
-  for_each = var.is_force_tunneling_enabled == true ? tomap({0 = true}) :  tomap({})
+  for_each = var.is_force_tunneling_enabled == true ? tomap({ 0 = true }) : tomap({})
 
   name                = var.management_pip_name
   location            = var.location
@@ -95,12 +95,12 @@ resource "azurerm_public_ip" "management" {
 }
 
 module "diagnostic_setting_management_pip" {
-  for_each = var.is_force_tunneling_enabled == true ? tomap({0 = true}) :  tomap({})
-  source = "git::https://github.com/Noya50/hafifot-diagnosticSetting.git"
+  for_each = var.is_force_tunneling_enabled == true ? tomap({ 0 = true }) : tomap({})
+  source   = "git::https://github.com/Noya50/hafifot-diagnosticSetting.git"
 
-  name                       = "${azurerm_public_ip.management[0].name}-diagnostic-setting"
-  target_resource_id         = azurerm_public_ip.management[0].id
-  log_analytics_workspace_id = var.management_pip_log_analytics_workspace_id != null ? var.management_pip_log_analytics_workspace_id : var.firewall_pip_log_analytics_workspace_id
+  name                          = "${azurerm_public_ip.management[0].name}-diagnostic-setting"
+  target_resource_id            = azurerm_public_ip.management[0].id
+  log_analytics_workspace_id    = var.management_pip_log_analytics_workspace_id != null ? var.management_pip_log_analytics_workspace_id : var.firewall_pip_log_analytics_workspace_id
   diagnostic_setting_categories = var.pips_diagnostic_setting_categories
 }
 
@@ -148,8 +148,8 @@ resource "azurerm_firewall" "this" {
 module "diagnostic_setting" {
   source = "git::https://github.com/Noya50/hafifot-diagnosticSetting.git?ref=main"
 
-  name                       = "${azurerm_firewall.this.name}-diagnostic-setting"
-  target_resource_id         = azurerm_firewall.this.id
-  log_analytics_workspace_id = var.log_analytics_workspace_id
+  name                          = "${azurerm_firewall.this.name}-diagnostic-setting"
+  target_resource_id            = azurerm_firewall.this.id
+  log_analytics_workspace_id    = var.log_analytics_workspace_id
   diagnostic_setting_categories = var.diagnostic_setting_categories
 }
