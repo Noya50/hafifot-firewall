@@ -41,7 +41,7 @@ resource "azurerm_firewall_policy_rule_collection_group" "example" {
       action   = application_rule_collection.value.action
 
       dynamic "rule" {
-        for_each = application_rule_collection.value.rule != null ? application_rule_collection.value.rule : []
+        for_each = application_rule_collection.value.rule != null ? application_rule_collection.value.rule : tomap([{}])
         content {
           name = rule.key
           dynamic "protocols" {
