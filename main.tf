@@ -48,7 +48,7 @@ resource "azurerm_firewall_policy_rule_collection_group" "example" {
             for_each = rule.value.protocols
             content {
               type = protocols.value.type
-              port = protocols.value.type
+              port = protocols.value.port
             }
           }
           source_addresses  = rule.value.source_addresses
