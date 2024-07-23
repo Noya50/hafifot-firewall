@@ -26,7 +26,7 @@ resource "azurerm_firewall_policy_rule_collection_group" "example" {
           protocols             = rule.value.protocols
           source_addresses      = rule.value.source_addresses
           destination_addresses = rule.value.destination_addresses
-          destination_ports     = rule.destination_ports
+          destination_ports     = rule.value.destination_ports
         }
       }
     }
