@@ -19,8 +19,8 @@ resource "azurerm_firewall_policy_rule_collection_group" "example" {
       name     = network_rule_collection.value.name
       priority = network_rule_collection.value.priority
       action   = network_rule_collection.value.action
-      dynamic "rule" {
-        for_each = network_rule_collection.value.rule != null ? network_rule_collection.value.rule : [{}]
+      rule {
+        for_each = network_rule_collection.value.rule != null ? network_rule_collection.value.rule : tomap([{}])
         content {
           name                  = rule.key
           protocols             = rule.value.protocols
