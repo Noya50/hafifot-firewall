@@ -77,7 +77,6 @@ module "diagnostic_setting_firewall_pip" {
   name                          = "${azurerm_public_ip.firewall.name}-diagnostic-setting"
   target_resource_id            = azurerm_public_ip.firewall.id
   log_analytics_workspace_id    = var.firewall_pip_log_analytics_workspace_id
-  diagnostic_setting_categories = var.pips_diagnostic_setting_categories
 }
 
 resource "azurerm_public_ip" "management" {
@@ -101,7 +100,6 @@ module "diagnostic_setting_management_pip" {
   name                          = "${azurerm_public_ip.management[0].name}-diagnostic-setting"
   target_resource_id            = azurerm_public_ip.management[0].id
   log_analytics_workspace_id    = var.management_pip_log_analytics_workspace_id != null ? var.management_pip_log_analytics_workspace_id : var.firewall_pip_log_analytics_workspace_id
-  diagnostic_setting_categories = var.pips_diagnostic_setting_categories
 }
 
 resource "azurerm_firewall" "this" {
@@ -151,5 +149,4 @@ module "diagnostic_setting" {
   name                          = "${azurerm_firewall.this.name}-diagnostic-setting"
   target_resource_id            = azurerm_firewall.this.id
   log_analytics_workspace_id    = var.log_analytics_workspace_id
-  diagnostic_setting_categories = var.diagnostic_setting_categories
 }
