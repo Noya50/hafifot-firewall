@@ -228,9 +228,3 @@ variable "application_rule_collections" {
   }))
   default = null
 }
-
-variable "diagnostic_setting_categories" {
-  description = "value"
-  type        = list(string)
-  default     = ["AzureFirewallApplicationRule", "AzureFirewallNetworkRule", "AzureFirewallDnsProxy", "AZFWApplicationRule", "AZFWApplicationRuleAggregation", "AZFWDnsQuery", "AZFWFatFlow", "AZFWFlowTrace", "AZFWFqdnResolveFailure", "AZFWIdpsSignature", "AZFWNatRule", "AZFWNatRuleAggregation", "AZFWNetworkRule", "AZFWNetworkRuleAggregation", "AZFWThreatIntel", "AzureFirewallApplicationRule", "AzureFirewallDnsProxy", "AzureFirewallNetworkRule"]
-}
